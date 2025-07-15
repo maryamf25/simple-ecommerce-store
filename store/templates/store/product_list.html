@@ -1,0 +1,19 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <h2>Products</h2>
+    <ul>
+      {% for product in products %}
+        <li>
+          <a href="{% url 'product_detail' product.id %}">
+            {{ product.name }} - Rs. {{ product.price }}
+          </a>
+        </li>
+      {% empty %}
+        <li>No products available.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

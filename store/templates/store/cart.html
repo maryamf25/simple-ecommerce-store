@@ -1,0 +1,20 @@
+{% extends "store/base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2>Your Cart</h2>
+    {% if cart_items %}
+      <ul>
+        {% for item in cart_items %}
+          <li>
+            {{ item.product.name }} - Quantity: {{ item.quantity }} - Rs. {{ item.item_total }}
+          </li>
+        {% endfor %}
+      </ul>
+      <p><strong>Total Price:</strong> Rs. {{ total_price }}</p>
+      <a href="#">Proceed to Checkout</a>
+    {% else %}
+      <p>Your cart is empty.</p>
+    {% endif %}
+  </div>
+{% endblock %}
