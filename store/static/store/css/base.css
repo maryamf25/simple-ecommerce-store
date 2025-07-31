@@ -1,0 +1,85 @@
+:root {
+  --primary-color: #2c3e50;
+  --primary-hover-color: #1f2b38;
+  --secondary-color: #1abc9c;
+  --secondary-hover-color: #159d84;
+  --background-color: #f0f2f5;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #d0ceceff;
+}
+
+nav {
+    background-color: #2c3e50;
+    display: flex;
+    justify-content: space-between; /* separates left and right */
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-left a,
+.nav-right a {
+    color: #ecf0f1;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.nav-left a{
+    font-weight: 1000;
+    font-size: 1.5rem;
+}
+.nav-right span {
+    color: #ecf0f1;
+    font-weight: 600;
+    margin-right: 15px;
+}
+
+.nav-left a:first-child {
+    margin-left: 0;
+}
+
+.nav-right a:hover {
+    color: #1abc9c;
+    transform: scale(1.05);
+}
+
+.logout-button {
+  padding: 12px 24px;
+  border: none;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 1rem;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-left,
+    .nav-right {
+        margin-top: 10px;
+    }
+
+    .nav-right a {
+        margin-left: 0;
+        margin-right: 15px;
+    }
+}

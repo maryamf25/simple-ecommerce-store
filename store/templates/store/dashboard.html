@@ -1,0 +1,47 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'store/css/dashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+  <h2>Hello, {{ user.first_name|default:user.username }} 👋</h2>
+  <p class="welcome-msg">Here’s your quick overview.</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-info">
+        <h3>{{ cart_items|length }}</h3>
+        <p>Items in Cart</p>
+      </div>
+      <a href="{% url 'view_cart' %}" class="card-link">View Cart →</a>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📦</div>
+      <div class="stat-info">
+        <h3>{{ orders|length }}</h3>
+        <p>Total Orders</p>
+      </div>
+      <a href="{% url 'view_orders' %}" class="card-link">View Orders →</a>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">⚙️</div>
+      <div class="stat-info">
+        <h3>Account</h3>
+        <p>Settings & Info</p>
+      </div>
+      <a href="#" class="card-link">Edit Profile →</a>
+    </div>
+  </div>
+
+  <div class="action-links">
+    <a href="{% url 'product_list' %}" class="action-btn">🛍️ Continue Shopping</a>
+    <a href="{% url 'logout' %}" class="action-btn logout">🚪 Logout</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,342 @@
+:root {
+  --primary-color: #2c3e50;
+  --primary-hover-color: #1f2b38;
+  --secondary-color: #1abc9c;
+  --secondary-hover-color: #159d84;
+  --background-color: #f0f2f5;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  background: linear-gradient(
+    135deg,
+    rgba(226, 226, 226, 1) 0%,
+    rgba(219, 219, 219, 1) 50%,
+    rgba(209, 209, 209, 1) 50%,
+    rgba(209, 209, 209, 1) 50%,
+    rgba(254, 254, 254, 1) 100%
+  ) center/cover no-repeat;
+  min-height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  margin: 2rem 0 1rem;
+  color: var(--primary-color);
+  font-size: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 50px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  font-size: 16px;
+  border-radius: 50px 0 0 50px;
+  outline: none;
+  background-color: transparent;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar button {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 0 50px 50px 0;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s;
+}
+
+.search-bar button:hover {
+  background: var(--secondary-hover-color);
+}
+
+.search-bar i {
+  pointer-events: none;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 24px;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  max-width: 450px;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  transition: 0.3s;
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  transition: 0.3s ease-in-out;
+}
+/* Base badge styling */
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* In-stock: green gradient */
+.badge.in-stock {
+  background: linear-gradient(
+    to right,
+    #28a745 0%,
+    #3cb371 50%,
+    #28a745 100%
+  );
+}
+
+/* Out-of-stock: red gradient (your original) */
+.badge.out-of-stock {
+  background: linear-gradient(
+    to right,
+    rgba(169, 3, 41, 1) 0%,
+    rgba(196, 72, 72, 1) 44%,
+    rgba(170, 34, 56, 1) 100%
+  );
+}
+
+
+
+.tilt {
+  overflow: hidden;
+}
+
+.img {
+  height: 200px;
+  overflow: hidden;
+}
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.card-link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+.card:hover .img img {
+  transform: scale(1.05);
+}
+
+.info {
+  padding: 20px;
+  justify-content: center;
+  display: block;
+}
+.cat {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #71717a;
+  margin-bottom: 5px;
+}
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #18181b;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+  text-align: left;
+}
+.desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Show only 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 40px; /* Adjust to prevent layout shifts */
+  color: #444;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.feats {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+.feat {
+  font-size: 10px;
+  background: #f4f4f5;
+  color: #71717a;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.bottom {
+  display: flex;
+    flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.price {
+  display: flex;
+  flex-direction: column;
+}
+.old {
+  font-size: 13px;
+  text-decoration: line-through;
+  color: #a1a1aa;
+  margin-bottom: 2px;
+}
+.new {
+  font-size: 20px;
+  font-weight: 700;
+  color: #18181b;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+.btn {
+  background: linear-gradient(45deg, #18181b, #27272a);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.3s;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.btn:hover {
+  background: linear-gradient(45deg, #27272a, #3f3f46);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+.btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+}
+.btn:hover:before {
+  left: 100%;
+}
+.icon {
+  transition: transform 0.3s;
+}
+.btn:hover .icon {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f4f4f5;
+  padding-top: 12px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.rcount {
+  margin-left: 6px;
+  font-size: 11px;
+  color: #71717a;
+}
+.stock {
+  font-size: 11px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .card {
+    width: 90%;
+  }
+}
+.feat.invisible {
+  visibility: hidden;
+}

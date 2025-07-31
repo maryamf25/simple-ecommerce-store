@@ -1,19 +1,142 @@
-{% extends "store/base.html" %}
-{% load static %}
+{% extends "store/base.html" %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'store/css/product_card.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 
-{% block content %}
-  <div class="container">
-    <h2>Products</h2>
-    <ul>
-      {% for product in products %}
-        <li>
-          <a href="{% url 'product_detail' product.id %}">
-            {{ product.name }} - Rs. {{ product.price }}
-          </a>
-        </li>
-      {% empty %}
-        <li>No products available.</li>
-      {% endfor %}
-    </ul>
+{% endblock %} {% block content %}
+<div class="container">
+  <h2>Products</h2>
+
+  <form class="search-bar" method="GET" action="{% url 'product_list' %}">
+    <input
+      type="text"
+      name="query"
+      placeholder="Search for products..."
+      value="{{ request.GET.query }}"
+    />
+    <button type="submit">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+
+  <div class="product-grid">
+    {% for product in products %}
+    <div class="card">
+  <a href="{% url 'product_detail' product.id %}" class="card-link">
+    <div
+      class="badge {% if product.stock|default:0 > 0 %}in-stock{% else %}out-of-stock{% endif %}"
+    >
+      {% if product.stock|default:0 > 0 %} In Stock {% else %} Out of Stock {%endif %}
+    </div>
+
+    <div class="tilt">
+      <div class="img">
+        <img
+          src="{{ product.image.url|default:'https://via.placeholder.com/200' }}"
+          alt="{{ product.name }}"
+        />
+      </div>
+    </div>
+    <div class="info">
+      {% if product.category %}
+      <div class="cat">{{ product.category }}</div>
+      {% endif %}
+      <h2 class="title">{{ product.name }}</h2>
+      <p class="desc">
+        {{ product.description|default:"No description available." }}
+      </p>
+      <div class="feats">
+        {% if product.tags.all %} 
+          {% for tag in product.tags.all %}
+            <span class="feat">{{ tag.name }}</span>
+          {% endfor %} 
+        {% else %}
+          <span class="feat invisible">No Tags</span>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  <!-- Keep bottom section (buttons) outside the link -->
+  <div class="bottom">
+    <div class="price">
+      <span class="new">Rs. {{ product.price }}</span>
+    </div>
+    <div class="actions">
+      <form method="POST" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <button class="btn" type="submit">
+          <span>Add to Cart</span>
+          <svg class="icon" width="13" height="13" ...>...</svg>
+        </button>
+      </form>
+      <form method="POST" action="{% url 'buy_now' product.id %}">
+        {% csrf_token %}
+        <button class="btn" type="submit"><span>Buy Now</span></button>
+      </form>
+    </div>
   </div>
+</div>
+
+    {% empty %}
+    <p>No products available.</p>
+    {% endfor %}
+
+    <!-- END HARDCODED CARD -->
+
+    <!-- DYNAMIC PRODUCTS LOOP -->
+    {% comment %} {% for product in products %}
+    <div class="product-card">
+      <img
+        src="{{ product.image.url|default:'https://via.placeholder.com/200' }}"
+        alt="{{ product.name }}"
+      />
+      <h3>{{ product.name }}</h3>
+      <p>Rs. {{ product.price }}</p>
+
+      <div class="product-actions">
+        <form method="POST" action="{% url 'add_to_cart' product.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-cart">Add to Cart</button>
+        </form>
+
+        <form action="{% url 'buy_now' product.id %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-buy_now" type="submit">Buy Now</button>
+        </form>
+      </div>
+    </div>
+    {% empty %}
+    <p>No products available.</p>
+    {% endfor %} {% endcomment %}
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchForm = document.querySelector(
+      'form[action="{% url "product_list" %}"]'
+    );
+    const input = searchForm.querySelector('input[name="search"]');
+
+    let previousValue = input.value;
+
+    input.addEventListener("input", () => {
+      const currentValue = input.value.trim();
+
+      if (previousValue && currentValue === "") {
+        searchForm.submit();
+      }
+
+      previousValue = currentValue;
+    });
+
+    const query = new URLSearchParams(window.location.search).get("search");
+    if (query) {
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  });
+</script>
 {% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %} {% block content %}
+{% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'store/css/order.css' %}" />
+{% endblock %}
+<h2 style="text-align: center">My Orders</h2>
+
+<div class="orders-container">
+  {% for entry in orders_with_items %}
+      <div class="order-card">
+
+<h3>Order ID: {{ entry.order.id }}</h3>
+      <p><strong>Date:</strong> {{ entry.order.ordered_at|date:"Y-m-d H:i" }}</p>
+
+      <div class="order-items">  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in entry.items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.price|floatformat:2 }}</td>
+        <td>${{ item.subtotal|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+        </div>
+  <p class="order-total">
+        <strong>Total:</strong> ${{ entry.total_price }}
+      </p>
+  <hr />
+  {% empty %}
+  <p>No orders found.</p>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock %}

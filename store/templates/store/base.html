@@ -2,18 +2,36 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Simple E-commerce Store</title>
-  <link rel="stylesheet" href="{% static 'store/style.css' %}">
-</head>
-<body>
-  <nav>
-    {% if user.is_authenticated %}
-      Hi, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-      <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
-    {% endif %}
-  </nav>
-  {% block content %}{% endblock %}
-</body>
+  <head>
+    <title>Simple E-commerce Store</title>
+    <link rel="stylesheet" href="{% static 'store/css/base.css' %}" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-left">
+        <a href="{% url 'product_list' %}"> Ecommerce Store</a>
+      </div>
+      <div class="nav-right">
+        {% if user.is_authenticated %}
+        <span>Hi, {{ user.username }}</span>
+        <a href="{% url 'user_dashboard' %}">Dashboard</a>
+        <a href="{% url 'view_orders' %}">Orders 📦</a> <!-- Added this line -->
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+  {% csrf_token %}
+  {% comment %} <button type="submit" class="logout-button">Logout</button> {% endcomment %}
+</form>
+
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+      </div>
+    </nav>
+      {% block content %}
+      {% endblock %}
+      {% block extra_css %}
+      {% endblock %}
+      {% block extra_js %}
+      {% endblock %}
+  </body>
 </html>
